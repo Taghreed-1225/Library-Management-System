@@ -1,0 +1,278 @@
+{
+	"info": {
+		"_postman_id": "9b64a3e5-0b94-49a5-876f-19a8a6f7bdb8",
+		"name": "Library Management System",
+		"description": "Postman collection for testing Library Management System APIs.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "40721589",
+		"_collection_link": "https://www.postman.com/mohammad-2269/workspace/librarymanagementsystem/collection/40721589-9b64a3e5-0b94-49a5-876f-19a8a6f7bdb8?action=share&source=collection_link&creator=40721589"
+	},
+	"item": [
+		{
+			"name": "Create Author",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\"\n}"
+				},
+				"url": "localhost:8080/api/authors"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Authors",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/api/authors"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Book",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Sample Book\",\n    \"isbn\": \"1234567890\",\n    \"language\": \"English\",\n    \"edition\": \"1st\",\n    \"summary\": \"A sample book.\",\n    \"publicationYear\": 2024,\n    \"coverImage\": \"cover.jpg\",\n    \"authorIds\": [\n        1\n    ],\n    \"publisherId\": 1,\n    \"categoryId\": 1\n}"
+				},
+				"url": "localhost:8080/api/books"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Books",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/api/books"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Book By ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/api/books/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Book",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Updated Title\",\n    \"isbn\": \"0987654321\",\n    \"language\": \"Arabic\",\n    \"edition\": \"2nd\",\n    \"summary\": \"Updated summary.\",\n    \"publicationYear\": 2025,\n    \"coverImage\": \"newcover.jpg\",\n    \"authorIds\": [\n        1\n    ],\n    \"publisherId\": 1,\n    \"categoryId\": 1\n}"
+				},
+				"url": "localhost:8080/api/books/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Book",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "localhost:8080/api/books/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Category",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Science\",\n    \"parentId\": null,\n    \"parentName\": null\n}"
+				},
+				"url": "localhost:8080/api/categories"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Categories",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/api/categories"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Publisher",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"O'Reilly\",\n    \"address\": \"USA\"\n}"
+				},
+				"url": "localhost:8080/api/publishers"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Publishers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/api/publishers"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Users",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Create User",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "get all members",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "create member",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin2",
+						"password": "1234"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Ahmed\",\r\n  \"email\": \"ahmed@gmail.com\",\r\n  \"phone\": \"0123456789\",\r\n  \"address\": \"Cairo\",\r\n  \"registrationDate\": \"2025-07-20\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/api/members"
+			},
+			"response": []
+		},
+		{
+			"name": "get member by id",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin2",
+						"password": "1234"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/api/members/1"
+			},
+			"response": []
+		},
+		{
+			"name": "delete member",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin2",
+						"password": "1234"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "localhost:8080/api/members/1"
+			},
+			"response": []
+		},
+		{
+			"name": "getAll transaction",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "update transzction",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin2",
+						"password": "1234"
+					}
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"bookId\": 2,\r\n  \"memberId\": 2,\r\n  \"userId\": 3,\r\n  \"borrowDate\": \"2024-07-20\",\r\n  \"returnDate\": \"2024-08-20\",\r\n  \"returned\": true\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/api/transactionsreturn/1"
+			},
+			"response": []
+		},
+		{
+			"name": "add transaction",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
