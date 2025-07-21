@@ -20,6 +20,7 @@ public class AppUserController {
     @GetMapping
 
     public List<UserDTO> getAllUsers() {
+        System.out.println("Controller user ");
         return userService.getAllUsers();
     }
 

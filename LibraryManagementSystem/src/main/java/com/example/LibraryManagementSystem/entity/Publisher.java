@@ -1,5 +1,6 @@
 package com.example.LibraryManagementSystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,5 +23,6 @@ public class Publisher {
     private String address;
 
     @OneToMany(mappedBy = "publisher")
+    @JsonBackReference
     private List<Book> books;
 }

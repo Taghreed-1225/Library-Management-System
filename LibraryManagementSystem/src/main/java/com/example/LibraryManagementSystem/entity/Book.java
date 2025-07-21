@@ -1,4 +1,5 @@
 package com.example.LibraryManagementSystem.entity;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,11 +30,14 @@ public class Book {
 
 
     @ManyToMany
+    @JsonManagedReference
     private List<Author> authors;
 
     @ManyToOne
+    @JsonManagedReference
     private Publisher publisher;
 
     @ManyToOne
+    @JsonManagedReference
     private Category category;
 }

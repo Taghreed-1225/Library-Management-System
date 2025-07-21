@@ -1,6 +1,11 @@
 package com.example.LibraryManagementSystem.security;
 
+import com.example.LibraryManagementSystem.Repositry.AppUserRepository;
+import com.example.LibraryManagementSystem.entity.AppUser;
+import com.example.LibraryManagementSystem.entity.Role;
 import com.example.LibraryManagementSystem.service.Imp.AppUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -23,16 +28,18 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
+
 public class SecurityConfig {
 
     @Autowired
-    private CustomUserDetailsService userDetailsService;
+    private AppUserDetailsService userDetailsService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+
 
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
@@ -46,41 +53,42 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+
+
         http
-                .csrf(csrf -> csrf.disable())
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(authz -> authz
-                        // Public endpoints
-                        .requestMatchers("/api/auth/**").permitAll()
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/test/authenticated").authenticated()
+                        .requestMatchers("/api/test/admin").hasRole("ADMIN")
 
-                        // Admin only endpoints
-                        .requestMatchers(HttpMethod.POST, "/api/users/**").hasAuthority("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/api/users/**").hasAuthority("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/users/**").hasAuthority("ADMIN")
+                        .requestMatchers("/api/test/public").permitAll()
+                        .requestMatchers("/api/users/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST,"/api/books/**").hasAnyRole("ADMIN", "LIBRARIAN")
+                        .requestMatchers(HttpMethod.PUT,"/api/books/**").hasAnyRole("ADMIN", "LIBRARIAN")
+                        .requestMatchers(HttpMethod.DELETE,"/api/books/**").hasAnyRole("ADMIN", "LIBRARIAN")
+                        .requestMatchers("/api/members/**").hasAnyRole("ADMIN", "LIBRARIAN")
+                        .requestMatchers("/api/transactions/**").hasAnyRole("ADMIN", "LIBRARIAN")
+                        .requestMatchers(HttpMethod.POST, "/api/transactions/**").hasAnyRole("ADMIN", "LIBRARIAN", "STAFF")
+                        .requestMatchers(HttpMethod.PUT, "/api/transactions/**").hasAnyRole("ADMIN", "LIBRARIAN", "STAFF")
 
-                        // Librarian and Admin can manage books, members, transactions
-                        .requestMatchers(HttpMethod.POST, "/api/books/**").hasAnyAuthority("ADMIN", "LIBRARIAN")
-                        .requestMatchers(HttpMethod.PUT, "/api/books/**").hasAnyAuthority("ADMIN", "LIBRARIAN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/books/**").hasAnyAuthority("ADMIN", "LIBRARIAN")
-                        // Librarian and Admin can view activity logs
-                        .requestMatchers(HttpMethod.GET, "/api/users/activity").hasAnyAuthority("ADMIN", "LIBRARIAN")
 
-                        .requestMatchers(HttpMethod.POST, "/api/members/**").hasAnyAuthority("ADMIN", "LIBRARIAN")
-                        .requestMatchers(HttpMethod.PUT, "/api/members/**").hasAnyAuthority("ADMIN", "LIBRARIAN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/members/**").hasAnyAuthority("ADMIN", "LIBRARIAN")
-
-                        .requestMatchers(HttpMethod.POST, "/api/transactions/**").hasAnyAuthority("ADMIN", "LIBRARIAN", "STAFF")
-                        .requestMatchers(HttpMethod.PUT, "/api/transactions/**").hasAnyAuthority("ADMIN", "LIBRARIAN", "STAFF")
-
+                        // Authors and Publishers: ADMIN only
+                        .requestMatchers("/api/authors/**").hasRole("ADMIN")
+                        .requestMatchers("/api/publishers/**").hasRole("ADMIN")
+                        .requestMatchers("/api/categories/**").hasRole("ADMIN")
 
 
                         // All authenticated users can read
-                        .requestMatchers(HttpMethod.GET, "/api/**").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
 
                         .anyRequest().authenticated()
                 )
-                .httpBasic(httpBasic -> {});
+                .csrf(csrf -> csrf.disable())
+                .httpBasic(Customizer.withDefaults());
+
 
         return http.build();
     }
+
+
 }

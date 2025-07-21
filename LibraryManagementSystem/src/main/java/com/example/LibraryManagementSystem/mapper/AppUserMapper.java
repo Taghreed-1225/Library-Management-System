@@ -17,12 +17,12 @@ public class AppUserMapper {
     }
 
     public UserDTO toDto(AppUser user) {
-        return new UserDTO(
-                user.getUsername(),
-                user.getPassword(), // عادي دلوقتي، بس لاحقًا في الـ GET هنشيلها
-                user.getEmail(),
-                user.getRole().name()
-        );
+        UserDTO dto = new UserDTO();
+        dto.setUsername(user.getUsername());
+        dto.setPassword(user.getPassword());
+        dto.setEmail(user.getEmail());
+        dto.setRole(user.getRole());
+        return dto;
     }
 }
 

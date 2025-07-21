@@ -25,9 +25,11 @@ public class AppUserServiceImpl {
 
 
     public List<UserDTO> getAllUsers() {
+        System.out.println("service user ");
         return userRepository.findAll().stream()
                 .map(userMapper::toDto)
                 .collect(Collectors.toList());
+
     }
 
     public UserDTO createUser(UserDTO dto) {
